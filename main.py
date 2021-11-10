@@ -16,7 +16,7 @@ for scfile in scfiles:
 	except Exception as e:
 		print(f"{e}")
 
-if len(scfiles)!=0:
+if len(scfiles)!=1:
 	print("\nDone!")
 else:
 	print("No SC files found!")	
