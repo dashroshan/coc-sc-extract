@@ -1,6 +1,14 @@
 ## COC Extract SC
 
-This python script allows you to extract the ``...tex.sc`` files of the Clash of Clans game APK which contains the in-game image sprite sheets in PNG format.
+A python script to batch extract PNG image sprite sheets from the ``...tex.sc`` files of the Clash of Clans game APK.
+
+### Installation
+
+This script uses a library called pylzham which requires ``Visual C++ build tools`` to install it through pip. To avoid complications, I recommend using Replit instead which is a free to use online IDE. Make an account on Replit and then [click here](https://repl.it/github/roshan1337d/cocExtractSC). Select the language as Python, enter ``python3 main.py`` in ``configure the run button`` field, and click done!
+
+
+
+
 
 ### Installation
 
