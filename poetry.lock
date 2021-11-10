@@ -1,0 +1,18 @@
+[[package]]
+name = "pylzham"
+version = "0.1.2"
+description = "Python 3 Wrapper for LZHAM Codec"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "d6d3b5dc8c595951d64032e35325f467f21231a760c2597c0df1bb2e4919eeca"
+
+[metadata.files]
+pylzham = [
+    {file = "pylzham-0.1.2-cp36-cp36m-win_amd64.whl", hash = "sha256:c7b4c5a90b29a2b4e169307686fdc59b36ce646bb72467275ca4ef9e80eb0e7a"},
+    {file = "pylzham-0.1.2.tar.gz", hash = "sha256:f6cf8b0f7a6f83aba137bba6882075f31803aa5fc8f9d10b887e146db30db592"},
+]

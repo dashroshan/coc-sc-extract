@@ -104,7 +104,7 @@ def process_sc(base_name, data):
 
     reader = Reader(decompressed)
 
-    count = 0
+    count = 1
     while len(reader):
         file_type = reader.read_byte()
         file_size = reader.read_uint32()
@@ -117,7 +117,7 @@ def process_sc(base_name, data):
         width = reader.read_uint16()
         height = reader.read_uint16()
 
-        print(f"{height}x{width}px image extracted!")
+        print(f"{count}. {height}x{width}px image extracted")
 
         if file_type == 27 or file_type == 28:
             pixel_sz = pixel_size(sub_type)
@@ -134,5 +134,5 @@ def process_sc(base_name, data):
             pixels = reader.read(file_size - 5)
 
         img = create_image(width, height, pixels, sub_type)
-        img.save(f"{base_name}{count}.png")
+        img.save(f"png/{base_name}{count}.png")
         count += 1
