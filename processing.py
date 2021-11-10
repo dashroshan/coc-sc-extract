@@ -1,8 +1,6 @@
 import hashlib
 import io
 import lzma
-import os
-
 from PIL import Image
 
 
@@ -32,11 +30,10 @@ class Reader(io.BytesIO):
         return self.read(length).decode("utf-8")
 
 
+
 def decompress(data):
     if data[:4] == b"SCLZ":
-        # Credits: https://github.com/Galaxy1036/pylzham
         import lzham
-
         dict_size = int.from_bytes(data[4:5], byteorder="big")
         uncompressed_size = int.from_bytes(data[5:9], byteorder="little")
         decompressed = lzham.decompress(
@@ -48,10 +45,11 @@ def decompress(data):
     return decompressed
 
 
+
 def create_image(width, height, pixels, sub_type):
     if sub_type == 0 or sub_type == 1:  # RGB8888
         return Image.frombytes("RGBA", (width, height), pixels, "raw")
-    elif sub_type == 2:  # RGBA4444
+    elif sub_type == 2:
         img = Image.new("RGBA", (width, height))
         ps = img.load()
         for h in range(height):
@@ -65,10 +63,10 @@ def create_image(width, height, pixels, sub_type):
                     ((p >> 0) & 0xF) << 4,
                 )
         return img
-    elif sub_type == 3:  # RBGA5551
+    elif sub_type == 3:
         args = ("RGBA;4B", 0, 0)
         return Image.frombytes("RGBA", (width, height), pixels, "raw", args)
-    elif sub_type == 4:  # RGB565
+    elif sub_type == 4:
         img = Image.new("RGB", (width, height))
         ps = img.load()
         for h in range(height):
@@ -81,12 +79,13 @@ def create_image(width, height, pixels, sub_type):
                     (p & 0x1F) << 3,
                 )
         return img
-    elif sub_type == 6:  # LA88
+    elif sub_type == 6:
         return Image.frombytes("LA", (width, height), pixels)
-    elif sub_type == 10:  # L8
+    elif sub_type == 10:
         return Image.frombytes("L", (width, height), pixels)
     else:
         raise Exception(f"Unknown sub type '{sub_type}'")
+
 
 
 def pixel_size(sub_type):
@@ -100,22 +99,15 @@ def pixel_size(sub_type):
         raise Exception(f"Unknown sub type '{sub_type}'")
 
 
-def process_sc(base_name, data, path, old):
+
+def process_sc(base_name, data):
     decompressed = decompress(data[26:])
 
     md5_hash = data[10:26]
     if hashlib.md5(decompressed).digest() != md5_hash:
-        raise Exception("File seems corrupted")
+        raise Exception("File is corrupted!")
 
     reader = Reader(decompressed)
-
-    if old:
-        # Credits: https://github.com/Galaxy1036/Old-Sc-Dumper
-        reader.read(17)
-        count = reader.read_uint16()
-        reader.read(count * 2)
-        for i in range(count):  # skip strings
-            reader.read_string()
 
     count = 0
     while len(reader):
@@ -130,10 +122,7 @@ def process_sc(base_name, data, path, old):
         width = reader.read_uint16()
         height = reader.read_uint16()
 
-        print(
-            f"  file_type: {file_type}, file_size: {file_size}, "
-            f"sub_type: {sub_type}, width: {width}, height: {height}"
-        )
+        print(f"{height}x{width}px image extracted!")
 
         if file_type == 27 or file_type == 28:
             pixel_sz = pixel_size(sub_type)
@@ -150,5 +139,5 @@ def process_sc(base_name, data, path, old):
             pixels = reader.read(file_size - 5)
 
         img = create_image(width, height, pixels, sub_type)
-        img.save(os.path.join(path, f"{base_name}_{count}.png"))
+        img.save(f"{base_name}{count}.png")
         count += 1
