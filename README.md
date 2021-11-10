@@ -10,6 +10,8 @@ This script uses a library called pylzham which requires ``Visual C++ build tool
 
 1. Download the [Clash of Clans apk](https://clash-of-clans.en.uptodown.com/android/download) file.
 2. Use [WinRAR](https://www.win-rar.com/download.html?&L=0) or any similar tool to extract the apk.
-3. Open `\assets\sc`, upload the `...tex.sc` files that you want to extract into the `sc` folder in Replit, click `Run`.
+3. Open `\assets\sc`
+4. Upload the desired `...tex.sc` files into the `sc` folder on Replit.
+5. Click `Run`
 
-The contents will be extracted as PNG files into the `png` folder.
+> You will find the extracted images inside the `png` folder.
