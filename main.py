@@ -6,6 +6,8 @@ scfiles = os.listdir("./sc")
 
 for scfile in scfiles:
 	filename=scfile.split(".")[0]
+	if filename=="":
+		continue
 	try:
 		with open(f"sc/{filename}.sc", "rb") as f:
 			print(f"\nExtracting : {filename}.sc")
