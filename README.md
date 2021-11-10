@@ -11,7 +11,7 @@ pip install pylzham
 
 ### Usage
 
-1. Download the Clash of Clans apk file.
-2. Use WinRAR or any similar tool to extract the apk.
+1. Download the [Clash of Clans apk](https://clash-of-clans.en.uptodown.com/android/download) file.
+2. Use [WinRAR](https://www.win-rar.com/download.html?&L=0) or any similar tool to extract the apk.
 3. Open `\assets\sc` and copy the `...tex.sc` files that you want to extract into the `main.py` directory.
 4. Run the `main.py` file and enter the name of the file that you want to extract. For example: `ui_tex` if you want to extract the `ui_tex.sc` file. The PNG image contents will then be extracted in the same directory as the `main.py` file.
