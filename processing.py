@@ -30,20 +30,17 @@ class Reader(io.BytesIO):
         return self.read(length).decode("utf-8")
 
 
-
 def decompress(data):
     if data[:4] == b"SCLZ":
         import lzham
         dict_size = int.from_bytes(data[4:5], byteorder="big")
         uncompressed_size = int.from_bytes(data[5:9], byteorder="little")
-        decompressed = lzham.decompress(
-            data[9:], uncompressed_size, {"dict_size_log2": dict_size}
-        )
+        decompressed = lzham.decompress(data[9:], uncompressed_size,
+                                        {"dict_size_log2": dict_size})
     else:
         data = data[0:9] + (b"\x00" * 4) + data[9:]
         decompressed = lzma.LZMADecompressor().decompress(data)
     return decompressed
-
 
 
 def create_image(width, height, pixels, sub_type):
@@ -55,7 +52,7 @@ def create_image(width, height, pixels, sub_type):
         for h in range(height):
             for w in range(width):
                 i = (w + h * width) * 2
-                p = int.from_bytes(pixels[i : i + 2], "little")
+                p = int.from_bytes(pixels[i:i + 2], "little")
                 ps[w, h] = (
                     ((p >> 12) & 0xF) << 4,
                     ((p >> 8) & 0xF) << 4,
@@ -72,7 +69,7 @@ def create_image(width, height, pixels, sub_type):
         for h in range(height):
             for w in range(width):
                 i = (w + h * width) * 2
-                p = int.from_bytes(pixels[i : i + 2], "little")
+                p = int.from_bytes(pixels[i:i + 2], "little")
                 ps[w, h] = (
                     ((p >> 11) & 0x1F) << 3,
                     ((p >> 5) & 0x3F) << 2,
@@ -87,7 +84,6 @@ def create_image(width, height, pixels, sub_type):
         raise Exception(f"Unknown sub type '{sub_type}'")
 
 
-
 def pixel_size(sub_type):
     if sub_type in [0, 1]:
         return 4
@@ -97,7 +93,6 @@ def pixel_size(sub_type):
         return 1
     else:
         raise Exception(f"Unknown sub type '{sub_type}'")
-
 
 
 def process_sc(base_name, data):
@@ -133,7 +128,7 @@ def process_sc(base_name, data):
                     for h in range(_h, min(_h + block_sz, height)):
                         i = (_w + h * width) * pixel_sz
                         sz = min(block_sz, width - _w) * pixel_sz
-                        pixels[i : i + sz] = reader.read(sz)
+                        pixels[i:i + sz] = reader.read(sz)
             pixels = bytes(pixels)
         else:
             pixels = reader.read(file_size - 5)
