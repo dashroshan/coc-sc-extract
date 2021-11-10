@@ -4,11 +4,11 @@ A python script to batch extract PNG image sprite sheets from the ``...tex.sc`` 
 
 ### Installation
 
-This script uses a library called pylzham which requires ``Visual C++ build tools`` to install it through pip. To avoid complications, I recommend using Replit instead which is a free to use online IDE. Make an account on Replit and then [click here](https://repl.it/github/roshan1337d/cocExtractSC). Select the language as Python, enter ``python3 main.py`` in ``configure the run button`` field, and click done!
+This script uses a library called pylzham which require the ``Visual C++ build tools`` to install it through pip. To avoid complications, I recommend using Replit instead which is a free to use online IDE. Make an account on Replit and then [click here](https://repl.it/github/roshan1337d/cocExtractSC). Select the language as Python, enter ``python3 main.py`` in ``configure the run button`` field, and click done!
 
 ### Usage
 
-1. Download the [Clash of Clans apk](https://clash-of-clans.en.uptodown.com/android/download) file.
+1. Download the [Clash of Clans apk file](https://clash-of-clans.en.uptodown.com/android/download)
 2. Use [WinRAR](https://www.win-rar.com/download.html?&L=0) or any similar tool to extract the apk.
 3. Open `\assets\sc`
 4. Upload the desired `...tex.sc` files into the `sc` folder on Replit.
